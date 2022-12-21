@@ -1,0 +1,11 @@
+[
+    {"id": 1, "name": "Arroz de Pato", "score": 100, "restaurant": "Taberna", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 2, "name": "Arroz de Sarrabulho", "score": 10, "restaurant": "Carvalheira", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 3, "name": "Francesinha", "score": 999, "restaurant": "Golfinho", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 4, "name": "Tacos", "score": 14, "restaurant": "Sicario", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 5, "name": "Carne Maturada", "score": 1000, "restaurant": "Terminal 4450", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 6, "name": "Cabrito", "score": 12, "restaurant": "Carvalheira", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 7, "name": "Lampreia", "score": 32, "restaurant": "Tasco do Zé", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 8, "name": "Leitão", "score": 78, "restaurant": "Rei dos Leitões", "author": "Eduardo Carneiro", "date": 123123123},
+    {"id": 9, "name": "Francesinha", "score": 99, "restaurant": "Brasão", "author": "Eduardo Carneiro", "date": 123123123}
+]
