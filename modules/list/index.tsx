@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react'
+import { useRouter } from 'next/router';
 
 import styles from './list.module.scss'
 
@@ -14,6 +15,12 @@ type Props = {
 
 
 const List: FunctionComponent<Props> = ({dishes}) => {
+    const router = useRouter();
+
+    const handleReturn = () => {
+      router.push(`http://localhost:3000`);
+    };
+
     const dishesElement = dishes.map((dish, index) => <Card position={index} dish={dish} />);
     return (
       <>
@@ -23,7 +30,7 @@ const List: FunctionComponent<Props> = ({dishes}) => {
         <div className={styles.actions}>
           <Button onClick={(e) => {console.log('Adicionar Restaurante')}} primary={true} >Adicionar Restaurante</Button>
           
-          <Button onClick={(e) => {console.log('Back Restaurante')}} primary={false} >Encontrar Outros Restaurantes</Button>
+          <Button onClick={handleReturn} primary={false} >Encontrar Outros Restaurantes</Button>
         </div>
       </>
       
