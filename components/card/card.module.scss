@@ -1,0 +1,81 @@
+@import "../../styles/variables.module.scss";
+
+.container {
+    width: 100%;
+    background-color: $lightBrown;
+    margin: $spacer-m 0;
+    border-radius: $spacer-s;
+    display: flex;
+    flex-direction: column;
+    padding: $spacer-s;
+
+    .details {
+        display: flex;
+
+        .left {
+            width: 70%;
+
+            h5 {
+                margin: 0;
+                font-size: $font-m;
+            }
+
+            p {
+                margin: 0;
+                font-size: $font-xm;
+            }
+        }
+
+        .right {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+
+            p {
+                margin: 0;
+                font-size: $font-xs;
+
+                &.bold {
+                    margin-top: 6px;
+                    font-weight: 600;
+                }
+            }
+
+            a {
+                background-color: $brown;
+                text-decoration: none;
+                color: $white;
+                font-size: $font-s;
+                border-radius: $spacer-xs;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: $spacer-m;
+
+                .icon {
+                    width: $spacer-s;
+                    margin-right: $spacer-xs;
+                }
+            }
+        }
+    }
+
+    .actions {
+        display: flex;
+        margin-top: $spacer-s;
+        a {
+            width: 33.3%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: $font-s;
+            color: $brown;
+
+            .icon {
+                width: $spacer-s;
+                margin-right: $spacer-xs;
+            }
+        }
+    }
+}

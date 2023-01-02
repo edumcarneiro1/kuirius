@@ -6,6 +6,5 @@
     {"id": 5, "name": "Carne Maturada", "score": 1000, "restaurant": "Terminal 4450", "author": "Eduardo Carneiro", "date": 123123123},
     {"id": 6, "name": "Cabrito", "score": 12, "restaurant": "Carvalheira", "author": "Eduardo Carneiro", "date": 123123123},
     {"id": 7, "name": "Lampreia", "score": 32, "restaurant": "Tasco do Zé", "author": "Eduardo Carneiro", "date": 123123123},
-    {"id": 8, "name": "Leitão", "score": 78, "restaurant": "Rei dos Leitões", "author": "Eduardo Carneiro", "date": 123123123},
-    {"id": 9, "name": "Francesinha", "score": 99, "restaurant": "Brasão", "author": "Eduardo Carneiro", "date": 123123123}
+    {"id": 8, "name": "Leitão", "score": 78, "restaurant": "Rei dos Leitões", "author": "Eduardo Carneiro", "date": 123123123}
 ]

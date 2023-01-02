@@ -20,4 +20,5 @@ export interface IDish {
     restaurant: string;
     author: string;
     dateOfCreation: number;
+    link: string;
 }

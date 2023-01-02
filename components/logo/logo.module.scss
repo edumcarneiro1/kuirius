@@ -1,0 +1,28 @@
+@import "../../styles/variables.module.scss";
+
+.logo {
+    width: 100%;
+    text-align: center;
+
+    h2 {
+        text-transform: uppercase;
+        margin: 0;
+
+        &.light { 
+            font-size: $font-m;
+            line-height: $font-m;
+            font-weight: 600;
+        }
+
+        &.strong {
+            font-size: $font-l;
+            line-height: $font-l;
+            font-weight: 600;
+        }
+    }
+
+    h5 {
+        margin: 0;
+        font-size: $font-s;
+    }
+}

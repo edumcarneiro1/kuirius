@@ -1,0 +1,24 @@
+@import "../../styles/variables.module.scss";
+
+.button {
+    width: 100%;
+    height: $spacer-xl;
+    border-radius: 12px;
+    border: none;
+    font-size: $font-xm;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-family: $body-font;
+    cursor: pointer;
+}
+
+.primary {
+    background-color: $green;
+    color: $white;
+}
+
+.secondary {
+    background-color: $white;
+    color: $green;
+    border: 1px solid $green;
+}
