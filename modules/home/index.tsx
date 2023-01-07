@@ -5,7 +5,7 @@ import styles from './home.module.scss'
 import Image from 'next/image';
 
 // Types
-import {ICity, IDish } from '../../bin/types';
+import {ICity, IDish } from '../../types/types';
 
 type Props = {
   dishes: IDish[];
@@ -24,8 +24,8 @@ import Button from '../../components/button';
 const Home: FunctionComponent<Props> = ({dishes, cities}) => {
     const router = useRouter();
 
-    const dishesDropdown = dishes.map(dish => ({value: dish.id, label: dish.name}));
-    const citiesDropdown = cities.map(city => ({value: city.id, label: city.name}));
+    const dishesDropdown = dishes.map(dish => ({value: dish._id, label: dish.name}));
+    const citiesDropdown = cities.map(city => ({value: city._id, label: city.name}));
 
     const [dish, setDish] = useState('');
 

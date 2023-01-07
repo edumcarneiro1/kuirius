@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import Home from '../modules/home';
 
-import {ICity, IDish} from '../bin/types';
+import {ICity, IDish} from '../types/types';
 import { FunctionComponent } from 'react';
 
 export async function getServerSideProps() {

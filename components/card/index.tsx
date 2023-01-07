@@ -2,7 +2,7 @@ import type { FunctionComponent } from 'react';
 import styles from './card.module.scss';
 
 
-import { IDish } from '../../bin/types';
+import { IDish } from '../../types/types';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

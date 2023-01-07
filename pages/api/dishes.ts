@@ -1,21 +1,48 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { IDish } from '../../bin/types';
+import { IDish } from '../../types/types';
+import clientPromise from '../../bin/db/mongodb';
+
+import { ObjectId } from 'mongodb'
+
+
 
 
 type Data = {
-  response?: IDish[];
+  response?: any[];
   status: string
 }
 
-export default function handler(
+type Query = {
+  _id?: any;
+};
+
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-    if (req.method === 'GET') {
-      const dishesMock: IDish[] = require("../../mock/dishes.json");
-      res.status(200).json({ status: 'success', response: dishesMock });
+   try {
+
+     if (req.method === 'GET') {
+      let { id } = req.query;
+
+      const query: Query = {};
+
+      const _id = id && typeof id === 'string' ? id : '';
+
+      
+      if (_id !== '') query._id = new ObjectId(_id);
+
+      const client = await clientPromise;
+      const db = client.db("kuiriusdb");
+    
+      console.log(query);
+      const dishes = await db.collection("dishes").find(query).toArray();
+
+      res.status(200).json({ status: 'success', response: dishes });
     } else {
       res.status(404).json({ status: 'Not Found' });
     }
+   } catch (e) {
+     res.status(500).json({ status: "Can't connect to DB"});
+   }
 }

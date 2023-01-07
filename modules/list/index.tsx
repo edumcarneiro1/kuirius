@@ -6,7 +6,7 @@ import styles from './list.module.scss'
 
 import Card from '../../components/card';
 import Button from '../../components/button';
-import { IDish } from '../../bin/types';
+import { IDish } from '../../types/types';
 
 type Props = {
   dishes: IDish[];

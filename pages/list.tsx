@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import styles from './list.module.scss';
 
-import { IDish } from '../bin/types';
+import { IDish } from '../types/types';
 
 import Layout from '../modules/layout';
 import Title from '../components/title';
@@ -14,16 +14,15 @@ export async function getServerSideProps({query}) {
 
  const { city,dish } = query;
 
+  const cityName = '';
+  const dishName = '';
+  const dishes = [];
+
   return {
     props: {
-      city: 'Porto',
-      dish: 'Francesinha',
-      dishes: [
-        {id: 1, restaurant: 'Cufra', score: '2062', author: 'Eduardo Carneiro', dateOfCreation: '23/03/22', link: 'http://www.google.com'},
-        {id: 2, restaurant: 'Plano B', score: '1502', author: 'Eduardo Carneiro', dateOfCreation: '23/03/22', link: 'http://www.google.com'},
-        {id: 3, restaurant: 'Brasão', score: '1031', author: 'Eduardo Carneiro', dateOfCreation: '23/03/22', link: 'http://www.google.com'},
-        {id: 4, restaurant: 'Golfinho', score: '123', author: 'Eduardo Carneiro', dateOfCreation: '23/03/22', link: 'http://www.google.com'},
-      ]
+      city: cityName,
+      dish: dishName,
+      dishes: dishes
     }, 
   }
 }
