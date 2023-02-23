@@ -2,7 +2,7 @@ import type { FunctionComponent } from 'react';
 import styles from './card.module.scss';
 
 
-import { IDish } from '../../types/types';
+import { IRestaurantDish } from '../../types/types';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +12,7 @@ import {  faLocationArrow, faThumbsUp, faThumbsDown, faShare} from '@fortawesome
 
 type Props = {
     position: number;
-    dish: IDish;
+    dish: IRestaurantDish;
 };
 
 
@@ -28,11 +28,11 @@ const Card: FunctionComponent<Props> = ({position, dish}) => {
         <div className={styles.container}>
             <div className={styles.details}>
                 <div className={styles.left}>
-                    <h5>{`${(position + 1).toString()}º ${dish.restaurant}` }</h5>
+                    <h5>{`${(position + 1).toString()}º ${dish.name}` }</h5>
                     <p>{`Pontuação: ${dish.score}`}</p>
                 </div>
                 <div className={styles.right}>
-                    <a href={dish.link} target='_blank' role={'button'}>
+                    <a href={dish.link} target='_blank' role={'button'} rel="noreferrer">
                         <FontAwesomeIcon icon={faPropIcon} className={styles.icon}/>
                         Visitar
                     </a>

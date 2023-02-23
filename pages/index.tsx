@@ -7,10 +7,10 @@ import { FunctionComponent } from 'react';
 
 export async function getServerSideProps() {
 
-  const resCities = await fetch(`http://localhost:3000/api/cities`);
+  const resCities = await fetch(`${process.env.HOST}/api/cities`);
   const cities = await resCities.json();
 
-  const resDishes = await fetch(`http://localhost:3000/api/dishes`);
+  const resDishes = await fetch(`${process.env.HOST}/api/dishes`);
   const dishes = await resDishes.json();
 
   return {

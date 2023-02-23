@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import styles from './list.module.scss';
 
-import { IDish } from '../types/types';
+import { IRestaurantDish } from '../types/types';
 
 import Layout from '../modules/layout';
 import Title from '../components/title';
@@ -30,7 +30,7 @@ export async function getServerSideProps({query}) {
 type Props = {
     city: string;
     dish: string;
-    dishes: IDish[];
+    dishes: IRestaurantDish[];
 }
 
 const Index: FunctionComponent<Props> = ({city, dish, dishes})  => {

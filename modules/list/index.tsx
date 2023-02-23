@@ -6,10 +6,10 @@ import styles from './list.module.scss'
 
 import Card from '../../components/card';
 import Button from '../../components/button';
-import { IDish } from '../../types/types';
+import { IRestaurantDish } from '../../types/types';
 
 type Props = {
-  dishes: IDish[];
+  dishes: IRestaurantDish[];
 };
 
 
@@ -21,6 +21,7 @@ const List: FunctionComponent<Props> = ({dishes}) => {
       router.push(`http://localhost:3000`);
     };
 
+    // eslint-disable-next-line react/jsx-key
     const dishesElement = dishes.map((dish, index) => <Card position={index} dish={dish} />);
     return (
       <>

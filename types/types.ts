@@ -4,11 +4,13 @@ export interface ICity {
     featured: boolean;
 }
 
-export interface IRestaurant {
+export interface IRestaurantDish {
     id: number;
     name: string;
     city: string;
     link: string;
+    score: number;
+    author: string;
     dateOfCreation: number;
     dishes?: IDish[];
 }
