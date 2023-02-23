@@ -32,7 +32,7 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
     const [city, setCity] = useState('');
 
     const handleSubmit = () => {
-      router.push(`http://localhost:3000/list?city=${city}&dish=${dish}`);
+      router.push(`/list?city=${city}&dish=${dish}`);
     };
 
     return (

@@ -18,7 +18,7 @@ const List: FunctionComponent<Props> = ({dishes}) => {
     const router = useRouter();
 
     const handleReturn = () => {
-      router.push(`http://localhost:3000`);
+      router.push(`/`);
     };
 
     // eslint-disable-next-line react/jsx-key
