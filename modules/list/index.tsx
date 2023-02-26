@@ -22,7 +22,7 @@ const List: FunctionComponent<Props> = ({dishes}) => {
     };
 
     // eslint-disable-next-line react/jsx-key
-    const dishesElement = dishes.map((dish, index) => <Card position={index} dish={dish} />);
+    const dishesElement = dishes.map((dish, index) => <Card key={index} position={index} dish={dish} />);
     return (
       <>
         <div>

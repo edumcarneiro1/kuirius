@@ -76,6 +76,11 @@
                 width: $spacer-s;
                 margin-right: $spacer-xs;
             }
+
+            &.clicked {
+             font-weight: bold;
+             color: $green;
+            }
         }
     }
 }

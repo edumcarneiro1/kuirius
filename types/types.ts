@@ -5,14 +5,14 @@ export interface ICity {
 }
 
 export interface IRestaurantDish {
-    id: number;
+    _id: string;
     name: string;
     city: string;
     link: string;
-    score: number;
+    score: string;
     author: string;
-    dateOfCreation: number;
-    dishes?: IDish[];
+    dateOfCreation: string;
+    dish: string;
 }
 
 

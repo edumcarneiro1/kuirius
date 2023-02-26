@@ -1,11 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { IDish } from '../../types/types';
 import clientPromise from '../../bin/db/mongodb';
 
-import { ObjectId } from 'mongodb'
-
-
-
+import { ObjectId } from 'mongodb';
 
 type Data = {
   response?: any[];
@@ -35,7 +31,6 @@ export default async function handler(
       const client = await clientPromise;
       const db = client.db("kuiriusdb");
     
-      console.log(query);
       const dishes = await db.collection("dishes").find(query).toArray();
 
       res.status(200).json({ status: 'success', response: dishes });
