@@ -1,5 +1,5 @@
 import { FunctionComponent, use } from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from './home.module.scss'
 import Image from 'next/image';
@@ -30,10 +30,20 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
     const [dish, setDish] = useState('');
 
     const [city, setCity] = useState('');
+    
+    const [error, setError] = useState(false);
 
     const handleSubmit = () => {
-      router.push(`/list?city=${city}&dish=${dish}`);
+      if (dish === '' && city === '') {
+        setError(true);
+      } else {
+        router.push(`/list?city=${city}&dish=${dish}`);
+      }
     };
+
+    useEffect(() => {
+        setError(false);
+    }, [city, dish]);
 
     return (
        <div className={styles.container}>
@@ -59,6 +69,7 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
                   <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity}/>
               </div>
               <div className={styles.button}>
+                  {error && <p>Escolha pelo menos uma cidade ou um prato.</p>}
                   <Button onClick={handleSubmit} primary={true} >Ver Restaurantes</Button>
              </div>
           </div>

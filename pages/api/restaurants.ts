@@ -29,10 +29,10 @@ export default async function handler(
       const _dish = dish && typeof dish === 'string' ? dish : '';
 
 
-      const query: Query = {
-        city: _city,
-        dish: _dish
-      };
+      const query: Query = {};
+
+      if (_city !== '')  query.city =  _city
+      if (_dish !== '')  query.dish =  _dish
 
       const restaurantDishes = await db.collection("restaurants_dishes").find(query).sort({score: -1}).collation({locale: "en_US", numericOrdering: true}).toArray();
       

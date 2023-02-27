@@ -14,24 +14,23 @@ export async function getServerSideProps({query}) {
 
  const { city,dish } = query;
 
+ let cityName = '';
+ let dishName = '';
 
- const resCity = await fetch(`${process.env.HOST}/api/cities?id=${city}`);
- const cityResult = await resCity.json();
-
- const resDish = await fetch(`${process.env.HOST}/api/dishes?id=${dish}`);
- const dishesResult = await resDish.json();
-
-
-
-  const cityName = cityResult.status === 'success' ? cityResult.response[0].name  : '';
-  const dishName = dishesResult.status === 'success' ? dishesResult.response[0].name  : '';
-  
+ if (city !== '') {
+    const resCity = await fetch(`${process.env.HOST}/api/cities?id=${city}`);
+    const cityResult = await resCity.json();
+    cityName = cityResult.status === 'success' ? cityResult.response[0].name  : '';
+ } 
+ 
+ if (dish !== '') {
+  const resDish = await fetch(`${process.env.HOST}/api/dishes?id=${dish}`);
+  const dishesResult = await resDish.json();
+  dishName = dishesResult.status === 'success' ? dishesResult.response[0].name  : '';
+ }
   
   const resRestaurants = await fetch(`${process.env.HOST}/api/restaurants?city=${city}&dish=${dish}`);
   const restaurants = await resRestaurants.json();
-  
-  
-
   const dishes = restaurants.status === 'success' ? restaurants.response : [];
   
   return {
@@ -52,10 +51,21 @@ type Props = {
 const Index: FunctionComponent<Props> = ({city, dish, dishes})  => {
     const router = useRouter();
 
+    let title = `Onde comer a melhor ${dish} no ${city}?`;
+    
+    if (dish === '') {
+      title = `Onde comer melhor em ${city}?`
+    }
+
+    if (city === '') {
+      title = `Onde comer a melhor ${dish}?`
+    }
+
+    
     return (
         <Layout>
             <div className={styles.title}>
-                <Title>{`Onde comer a melhor ${dish} no ${city}?`}</Title>
+                <Title>{title}</Title>
                 <List dishes={dishes}/>
             </div>
         </Layout>

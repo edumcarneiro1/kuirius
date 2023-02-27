@@ -1,5 +1,14 @@
+@import "../../styles/variables.module.scss";
+
 .actions {
     button {
         margin-bottom: 6px;
+    }
+}
+
+.results {
+    p.noResults {
+        font-size: $font-m;
+        text-align: center;
     }
 }

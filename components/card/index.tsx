@@ -14,6 +14,7 @@ import {  faLocationArrow, faThumbsUp, faThumbsDown, faShare} from '@fortawesome
 type Props = {
     position: number;
     dish: IRestaurantDish;
+    setNotification: (params: any) => any;
 };
 
 enum INTERACTION {
@@ -27,7 +28,7 @@ const faPropDownIcon = faThumbsDown as IconProp;
 const faPropShareIcon = faShare as IconProp;
 
 
-const Card: FunctionComponent<Props> = ({position, dish}) => {
+const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
     const [liked, setLiked ] = useState(false);
     const [disliked, setDisliked ] = useState(false);
     const [score, setScore] = useState(parseInt(dish.score));
@@ -40,6 +41,7 @@ const Card: FunctionComponent<Props> = ({position, dish}) => {
     const handleShare = (e) => {
         e.preventDefault();
         navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_HOST}/${router.asPath}#${dish._id}`);
+        setNotification('O link do restaurante foi copiado para o seu clipboard');
     } 
 
     const setInteraction = (e, interaction) => {

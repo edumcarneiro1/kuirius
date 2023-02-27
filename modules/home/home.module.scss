@@ -25,6 +25,14 @@
         
         .button {
             margin: $spacer-xl $spacer-xl;
+
+            p {
+                padding: $spacer-s;
+                background-color: $lightRed;
+                color: $strongRed;
+                font-weight: bold;
+                text-align: center;
+            }
         }
 
         @media (max-width: $breakPointTablet) {
