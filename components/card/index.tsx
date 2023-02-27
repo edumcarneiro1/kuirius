@@ -81,8 +81,7 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
     
         fetch(`${process.env.NEXT_PUBLIC_HOST}/api/restaurants?city=${router.query.city}&dish=${router.query.dish}`, {
             method: 'POST',
-            body: JSON.stringify(newDish),
-            headers: {'Content-Type' : 'application/json; charset=utf8'}
+            body: JSON.stringify(newDish)
             }
         );
         
