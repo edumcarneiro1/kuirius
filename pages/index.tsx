@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import Home from '../modules/home';
+import Script from 'next/script';
 
 import {ICity, IDish} from '../types/types';
 import { FunctionComponent } from 'react';
@@ -38,6 +39,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Home dishes={dishes} cities={cities}></Home>
+      <Script src="/hotjar.js"></Script>
     </>
   )
 }

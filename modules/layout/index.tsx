@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react'
 import Head from 'next/head';
+import Script from 'next/script';
 import styles from './layout.module.scss'
 
 
@@ -27,6 +28,7 @@ const Layout: FunctionComponent<Props> = ({children}) => {
                 {children} 
            </div>
        </div>
+       <Script src="/hotjar.js"></Script>
       </>
        
     );
