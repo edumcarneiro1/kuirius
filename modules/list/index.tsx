@@ -25,6 +25,10 @@ const List: FunctionComponent<Props> = ({dishes}) => {
       router.push(`/`);
     };
 
+    const handleAdd = () => {
+      router.push(`/restaurant`);
+    }
+
     useEffect(() => {
       setTimeout(()=> {
         setNotification('');
@@ -43,7 +47,7 @@ const List: FunctionComponent<Props> = ({dishes}) => {
           { dishesElement}
         </div>
         <div className={styles.actions}>
-          <Button onClick={(e) => {console.log('Adicionar Restaurante')}} primary={true} >Adicionar Restaurante</Button>
+          <Button onClick={handleAdd} primary={true} >Adicionar Restaurante</Button>
           
           <Button onClick={handleReturn} primary={false} >Encontrar Outros Restaurantes</Button>
         </div>

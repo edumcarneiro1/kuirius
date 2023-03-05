@@ -1,0 +1,9 @@
+@import "../../styles/variables.module.scss";
+
+.error {
+    padding: $spacer-s;
+    background-color: $lightRed;
+    color: $strongRed;
+    font-weight: bold;
+    text-align: center;
+}

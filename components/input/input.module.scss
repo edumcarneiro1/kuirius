@@ -1,0 +1,12 @@
+@import "../../styles/variables.module.scss";
+
+.input {
+    width: 100%;
+    height: 60px;
+    border-radius: $spacer-s;
+    border: 1px solid $black;
+    padding: $spacer-s;
+    font-family: "Kumbh Sans", sans-serif;
+    font-size: $font-xm;
+    font-weight: 300;
+}

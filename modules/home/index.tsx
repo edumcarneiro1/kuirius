@@ -19,6 +19,7 @@ import Logo from '../../components/logo';
 import Title from '../../components/title';
 import Dropdown from '../../components/dropdown';
 import Button from '../../components/button';
+import Error from '../../components/error';
 
 
 const Home: FunctionComponent<Props> = ({dishes, cities}) => {
@@ -69,7 +70,7 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
                   <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity}/>
               </div>
               <div className={styles.button}>
-                  {error && <p>Escolha pelo menos uma cidade ou um prato.</p>}
+                  {error && <Error>Escolha pelo menos uma cidade ou um prato.</Error>}
                   <Button onClick={handleSubmit} primary={true} >Ver Restaurantes</Button>
              </div>
           </div>

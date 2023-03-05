@@ -1,0 +1,16 @@
+@import "../../styles/variables.module.scss";
+
+.restaurant {
+    padding: $spacer-xl 0;
+
+    .field {
+        margin: $spacer-m 0;
+    }
+
+    .author {
+        h3 {
+            font-size: $font-xm;
+            font-weight: 300;
+        }
+    }
+}
