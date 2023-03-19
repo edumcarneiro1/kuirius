@@ -36,6 +36,7 @@ export async function getServerSideProps({query}) {
   return {
     props: {
       city: cityName,
+      cityId: city,
       dish: dishName,
       dishes: dishes
     }, 
@@ -45,10 +46,11 @@ export async function getServerSideProps({query}) {
 type Props = {
     city: string;
     dish: string;
+    cityId: string,
     dishes: IRestaurantDish[];
 }
 
-const Index: FunctionComponent<Props> = ({city, dish, dishes})  => {
+const Index: FunctionComponent<Props> = ({city, cityId, dish, dishes})  => {
     const router = useRouter();
 
     let title = `Onde comer a melhor ${dish} no ${city}?`;
@@ -66,7 +68,7 @@ const Index: FunctionComponent<Props> = ({city, dish, dishes})  => {
         <Layout>
             <div className={styles.title}>
                 <Title>{title}</Title>
-                <List dishes={dishes}/>
+                <List dishes={dishes} city={cityId}/>
             </div>
         </Layout>
     )

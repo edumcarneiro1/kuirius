@@ -1,4 +1,5 @@
 import { FunctionComponent, useState, useEffect} from 'react'
+import { useRouter } from 'next/router';
 
 import styles from './restaurant.module.scss';
 
@@ -15,6 +16,9 @@ type Props = {
 }
 
 const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
+    const router = useRouter();
+    
+    const cityName = router.query && router.query.city && router.query.city !== undefined ? router.query.city.toString() : '';
 
     const [city, setCity] = useState('');
 
@@ -46,14 +50,24 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
         }
     };
 
+    const handleReturn = () => {
+        router.push('/');
+    }
+
     useEffect(() => {
         setError(false);
     }, [city, name]);
 
+    useEffect(() => {
+        if (cityName) {
+            setCity(cityName);
+        }
+    }, []);
+
     return (
       <div className={styles.restaurant}>
         <div className={styles.field}>
-            <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} style={'add'}/>
+            <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} style={'add'} value={cityName}/>
         </div>
         <div className={styles.field}>
             <Input placeHolder='Nome do Restaurante' onChange={setName}/>
@@ -73,6 +87,7 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
         <div className={styles.actions}>
             {error && <Error>Preencha os campos obrigatórios (Cidade e Nome do Restaurante)</Error>}
             <Button onClick={addRestaurant} primary={true} >Adicionar Restaurante</Button>
+            <Button onClick={handleReturn} primary={false} >Encontrar Outros Restaurantes</Button>
         </div>
       </div>
        

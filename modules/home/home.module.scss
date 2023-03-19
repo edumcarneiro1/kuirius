@@ -25,6 +25,10 @@
         
         .button {
             margin: $spacer-xl $spacer-xl;
+
+            button {
+                margin-bottom: $spacer-s;
+            }
         }
 
         @media (max-width: $breakPointTablet) {

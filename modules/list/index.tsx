@@ -12,11 +12,12 @@ import { IRestaurantDish } from '../../types/types';
 
 type Props = {
   dishes: IRestaurantDish[];
+  city: string;
 };
 
 
 
-const List: FunctionComponent<Props> = ({dishes}) => {
+const List: FunctionComponent<Props> = ({dishes, city}) => {
     const router = useRouter();
 
     const [notification, setNotification] = useState('');
@@ -26,7 +27,7 @@ const List: FunctionComponent<Props> = ({dishes}) => {
     };
 
     const handleAdd = () => {
-      router.push(`/restaurant`);
+      router.push(`/restaurant?city=${city}`);
     }
 
     useEffect(() => {
@@ -47,7 +48,13 @@ const List: FunctionComponent<Props> = ({dishes}) => {
           { dishesElement}
         </div>
         <div className={styles.actions}>
-          <Button onClick={handleAdd} primary={true} >Adicionar Restaurante</Button>
+          <Button 
+              onClick={handleAdd} 
+              primary={true} 
+              disclaimer={'Conhece um restaurante que merecia estar nesta lista?'} 
+          >
+            Adicionar Restaurante
+          </Button>
           
           <Button onClick={handleReturn} primary={false} >Encontrar Outros Restaurantes</Button>
         </div>

@@ -2,6 +2,7 @@ import type { FunctionComponent } from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
 import styles from './card.module.scss';
+import classNames from 'classnames';
 
 
 import { IRestaurantDish } from '../../types/types';
@@ -9,7 +10,7 @@ import { IRestaurantDish } from '../../types/types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import {  faLocationArrow, faThumbsUp, faThumbsDown, faShare} from '@fortawesome/free-solid-svg-icons'
+import {  faLocationArrow, faThumbsUp, faThumbsDown, faShare, faEye} from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     position: number;
@@ -26,6 +27,7 @@ const faPropIcon = faLocationArrow as IconProp;
 const faPropUpIcon = faThumbsUp as IconProp;
 const faPropDownIcon = faThumbsDown as IconProp;
 const faPropShareIcon = faShare as IconProp;
+const faPropEye = faEye as IconProp;
 
 
 const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
@@ -33,8 +35,8 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
     const [disliked, setDisliked ] = useState(false);
     const [score, setScore] = useState(parseInt(dish.score));
 
-    const likedClassname = liked ? styles.clicked : '';
-    const disLikedClassname = disliked ? styles.clicked : '';
+    const likedClassname = liked ? styles.like : '';
+    const disLikedClassname = disliked ? styles.dislike : '';
 
     const router = useRouter();
 
@@ -96,26 +98,20 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
 
     const authorBlock = formattedDate ? <p>{`${dish.author} - ${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`}</p> :  <p>{`${dish.author}`}</p>;
 
+    const actionsClassname = dish.link === '' ? classNames(styles.actions, styles.noLink): styles.actions;
+
     return  (
         <div id={dish._id} className={styles.container}>
             <div className={styles.details}>
                 <div className={styles.left}>
-                    <h5>{`${(position + 1).toString()}º ${dish.name}` }</h5>
-                    <p>{`Pontuação: ${score}`}</p>
-                </div>
-                <div className={styles.right}>
-                    {
-                    dish.link !== '' && 
-                    <a href={dish.link} target='_blank' role={'button'} rel="noreferrer">
-                        <FontAwesomeIcon icon={faPropIcon} className={styles.icon}/>
-                        Visitar
-                    </a>
-                    }     
-                    <p className={styles.bold}>Criado por:</p>
                     {authorBlock}
                 </div>
+                <div className={styles.right}>
+                    <p>{`Pontuação: ${score}`}</p>
+                </div>
             </div>
-            <div className={styles.actions}>
+            <h2>{`${(position + 1).toString()}º ${dish.name}` }</h2>
+            <div className={actionsClassname}>
                 <a href="#" className={likedClassname} onClick={(e) => setInteraction(e, INTERACTION.Like)}>
                     <FontAwesomeIcon icon={faPropUpIcon} className={styles.icon}/>
                     Gosto
@@ -128,9 +124,14 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
                     <FontAwesomeIcon icon={faPropShareIcon} className={styles.icon}/>
                     Partilhar
                 </a>
+                {dish.link && 
+                    <a href={dish.link} target="_blank" rel='noreferrer'>
+                        <FontAwesomeIcon icon={faPropEye} className={styles.icon}/>
+                        Visitar
+                    </a>
+}
             </div>
         </div>
     )
 };
-
 export default Card;

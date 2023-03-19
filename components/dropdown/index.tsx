@@ -6,11 +6,12 @@ type Props = {
     values: any;
     placeHolder: string;
     style?: string;
+    value?: string;
     onChange: (params: any) => any;
 };
 
 
-const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, style}) => {
+const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, style, value}) => {
     
     const handleChange = (selectedOption) => {
         onChange(selectedOption.value);
@@ -30,25 +31,44 @@ const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, styl
         color = '#000000';
         border = '#000000';
     }
+    const select = value && value !== '' ? 
+        <Select 
+        options={values} 
+        placeholder={placeHolder}
+        onChange={handleChange}
+        value={value && value !== '' && values.filter(option => option.value === value)}
+        styles={{
+            control: (baseStyles, state) => ({
+            ...baseStyles,
+            borderColor: state.isFocused ? 'grey' : border,
+            height: '60px',
+            boxShadow: boxShadow,
+            color: color,
+            borderRadius: borderRadius,
+            fontSize: '14px'
+            })
+        }}
+        /> : 
+        <Select 
+        options={values} 
+        placeholder={placeHolder}
+        onChange={handleChange}
+        styles={{
+            control: (baseStyles, state) => ({
+            ...baseStyles,
+            borderColor: state.isFocused ? 'grey' : border,
+            height: '60px',
+            boxShadow: boxShadow,
+            color: color,
+            borderRadius: borderRadius,
+            fontSize: '14px'
+            })
+        }}
+        />; 
 
     return  (
         <div className={styles.dropdown}>
-              <Select 
-                options={values} 
-                placeholder={placeHolder}
-                onChange={handleChange}
-                styles={{
-                    control: (baseStyles, state) => ({
-                      ...baseStyles,
-                      borderColor: state.isFocused ? 'grey' : border,
-                      height: '60px',
-                      boxShadow: boxShadow,
-                      color: color,
-                      borderRadius: borderRadius,
-                      fontSize: '14px'
-                    })
-                }}
-                />
+             {select}
         </div>
     )
 };

@@ -9,31 +9,34 @@
     flex-direction: column;
     padding: $spacer-s;
 
+    h2 {
+        text-align: center;
+        margin: $spacer-s 0;
+    }
+
     .details {
         display: flex;
 
         .left {
-            width: 70%;
-
-            h5 {
-                margin: 0;
-                font-size: $font-m;
-            }
+            width: 50%;
 
             p {
                 margin: 0;
-                font-size: $font-xm;
+                font-size: $font-s;
+                font-weight: 200;
             }
         }
 
         .right {
-            width: 30%;
+            width: 50%;
             display: flex;
             flex-direction: column;
+            align-items: flex-end;
 
             p {
                 margin: 0;
-                font-size: $font-xs;
+                font-size: $font-xm;
+                font-weight: bold;
 
                 &.bold {
                     margin-top: 6px;
@@ -65,7 +68,7 @@
         display: flex;
         margin-top: $spacer-s;
         a {
-            width: 33.3%;
+            width: 25%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -77,10 +80,20 @@
                 margin-right: $spacer-xs;
             }
 
-            &.clicked {
+            &.like {
              font-weight: bold;
              color: $green;
             }
+
+            &.dislike {
+                font-weight: bold;
+                color: $strongRed;
+               }
+        }
+    }
+    .noLink {
+        a {
+            width: 33.3%;
         }
     }
 }

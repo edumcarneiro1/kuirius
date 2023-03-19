@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react'
 import Head from 'next/head';
 import Script from 'next/script';
 import styles from './layout.module.scss'
+import Image from 'next/image';
 
 
 import Logo from '../../components/logo';
@@ -23,6 +24,14 @@ const Layout: FunctionComponent<Props> = ({children}) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className={styles.container}>
+          <div className={styles.image}>
+                <Image 
+                src="/home.png"
+                alt="Home Layoyt"
+                width={177}
+                height={196}
+              />
+            </div>
            <div className={styles.page}>
                 <Logo>Kuirius</Logo>
                 {children} 

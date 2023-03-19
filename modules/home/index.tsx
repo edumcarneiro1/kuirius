@@ -42,6 +42,10 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
       }
     };
 
+    const handleAdd = () => {
+      router.push('/restaurant')
+    }
+
     useEffect(() => {
         setError(false);
     }, [city, dish]);
@@ -53,7 +57,7 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
               src="/home.png"
               alt="Home Layoyt"
               width={177}
-              height={180}
+              height={196}
             />
           </div>
           <div className={styles.page}>
@@ -72,6 +76,11 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
               <div className={styles.button}>
                   {error && <Error>Escolha pelo menos uma cidade ou um prato.</Error>}
                   <Button onClick={handleSubmit} primary={true} >Ver Restaurantes</Button>
+                  <Button 
+                    onClick={handleAdd} 
+                    primary={false} 
+                    disclaimer={'Não encontrou o seu prato favorito? Adicione-o aqui.'}
+                  >Adicionar Prato</Button>
              </div>
           </div>
        </div>
