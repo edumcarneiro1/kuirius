@@ -61,7 +61,7 @@ export default async function handler(
         `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
       );
 
-      res.status(200).json({ status: 'POST DONE' });
+      res.status(200).json({ status: 'Success' });
     }
    } catch (e) {
      res.status(500).json({ status: "Can't connect to DB"});

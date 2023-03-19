@@ -5,7 +5,7 @@ export interface ICity {
 }
 
 export interface IRestaurantDish {
-    _id: string;
+    _id?: string;
     name: string;
     city: string;
     link: string;
