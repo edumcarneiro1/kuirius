@@ -65,32 +65,33 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
     }, []);
 
     return (
-      <div className={styles.restaurant}>
-        <div className={styles.field}>
-            <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} style={'add'} value={cityName}/>
-        </div>
-        <div className={styles.field}>
-            <Input placeHolder='Nome do Restaurante' onChange={setName}/>
-        </div>
-        <div className={styles.field}>
-            <Input placeHolder='Link do Restaurante (Facebook, Google)' onChange={setLink}/>
-        </div>
-        <div className={styles.author}>
-            <h3>A sua autoria (Opcional)</h3>
-            <div className={styles.field}>
-                <Input placeHolder='O seu nome' onChange={setAuthor}/>
+        <>  
+            <div className={styles.restaurant}>
+                <div className={styles.field}>
+                    <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} style={'add'} value={cityName}/>
+                </div>
+                <div className={styles.field}>
+                    <Input placeHolder='Nome do Restaurante' onChange={setName}/>
+                </div>
+                <div className={styles.field}>
+                    <Input placeHolder='Link do Restaurante (Facebook, Google)' onChange={setLink}/>
+                </div>
+                <div className={styles.author}>
+                    <h3>A sua autoria (Opcional)</h3>
+                    <div className={styles.field}>
+                        <Input placeHolder='O seu nome' onChange={setAuthor}/>
+                    </div>
+                    <div className={styles.field}>
+                        <Input placeHolder='O seu link Facebook' onChange={setSocial}/>
+                    </div>
+                </div>
+                <div className={styles.actions}>
+                    {error && <Error>Preencha os campos obrigatórios (Cidade e Nome do Restaurante)</Error>}
+                    <Button onClick={addRestaurant} primary={true} >Adicionar Restaurante</Button>
+                    <Button onClick={handleReturn} primary={false} >Encontrar Outros Restaurantes</Button>
+                </div>
             </div>
-            <div className={styles.field}>
-                <Input placeHolder='O seu link Facebook' onChange={setSocial}/>
-            </div>
-        </div>
-        <div className={styles.actions}>
-            {error && <Error>Preencha os campos obrigatórios (Cidade e Nome do Restaurante)</Error>}
-            <Button onClick={addRestaurant} primary={true} >Adicionar Restaurante</Button>
-            <Button onClick={handleReturn} primary={false} >Encontrar Outros Restaurantes</Button>
-        </div>
-      </div>
-       
+        </> 
     );
 };
 

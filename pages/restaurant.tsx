@@ -9,6 +9,7 @@ import Success from '../modules/success';
 import Dish from '../modules/dish';
 import { ICity, IRestaurantDish } from '../types/types';
 import { stat } from 'fs';
+import Loading from '../modules/loading';
 
 
 export async function getServerSideProps() {
@@ -36,6 +37,8 @@ const Index: FunctionComponent<Props> = ({cities})  => {
     
     const [message, setMessage] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const [restaurant, setRestaurant] = useState({
       name: '',
       link: '',
@@ -45,6 +48,7 @@ const Index: FunctionComponent<Props> = ({cities})  => {
     });
 
     const postRestaurant = (dish) => {
+      setLoading(true);
       const restaurantDish: IRestaurantDish= {
         name: restaurant.name,
         city: restaurant.city,
@@ -62,6 +66,7 @@ const Index: FunctionComponent<Props> = ({cities})  => {
       )
       .then(response => response.json())
       .then((result) => {
+        setLoading(false);
         if (result.status === 'Success') {
           setMessage('Obrigado pela sua contribuição');
           setStatus('success');
@@ -79,7 +84,6 @@ const Index: FunctionComponent<Props> = ({cities})  => {
 
     useEffect(() => {
       setTimeout(()=> {
-
         if (status === 'success') {
           router.push(`/`);
         } else {
@@ -93,7 +97,7 @@ const Index: FunctionComponent<Props> = ({cities})  => {
             city: ''
           });
         }
-      }, 2000)
+      }, 1000)
     }, [status]);
     
     const title = restaurant.name === '' ? 'Adicionar Restaurante' : `Adicionar um prato ao restaurante ${restaurant.name}`;
@@ -110,6 +114,7 @@ const Index: FunctionComponent<Props> = ({cities})  => {
                           </>
     return (
         <Layout>
+            {loading && <Loading />}
             <div className={styles.title}>
                 { pageContent }
             </div>

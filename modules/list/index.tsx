@@ -9,6 +9,7 @@ import Button from '../../components/button';
 import Notification from '../../components/notification';
 
 import { IRestaurantDish } from '../../types/types';
+import Loading from '../loading';
 
 type Props = {
   dishes: IRestaurantDish[];
@@ -22,11 +23,15 @@ const List: FunctionComponent<Props> = ({dishes, city}) => {
 
     const [notification, setNotification] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const handleReturn = () => {
+      setLoading(true);
       router.push(`/`);
     };
 
     const handleAdd = () => {
+      setLoading(true);
       router.push(`/restaurant?city=${city}`);
     }
 
@@ -44,6 +49,7 @@ const List: FunctionComponent<Props> = ({dishes, city}) => {
       </p>;
     return (
       <>
+        {loading && <Loading />}
         <div className={styles.results}>
           { dishesElement}
         </div>
