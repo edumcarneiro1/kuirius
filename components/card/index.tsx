@@ -61,8 +61,13 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
             } else {
                 //Increase score +1 on DB
                 newLikeValue = true;
-                newScore = score + 1;
-                if (disliked) newDislikeValue = false;
+
+                if (disliked) {
+                    newDislikeValue = false;
+                    newScore = score + 2;
+                } else {
+                    newScore = score + 1;
+                }
             }
         } else {
             if (disliked) {
@@ -72,9 +77,13 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
 
             } else {
                 //Descrease score -1 on DB
-                newScore = score - 1;
                 newDislikeValue = true;
-                if (liked) newLikeValue = false;
+                if (liked) {
+                    newLikeValue = false;
+                    newScore = score - 2;
+                } else {
+                    newScore = score - 1;
+                }
             }   
         }
         const newDish = dish;
