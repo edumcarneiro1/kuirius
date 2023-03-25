@@ -102,25 +102,23 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
 
     };
 
-    const formattedDate = dish.dateOfCreation !== '' ? new Date(parseInt(dish.dateOfCreation)) : null;
+    const formattedDate = dish.dateOfCreation !== '' ? new Date(parseInt(dish.dateOfCreation)) : new Date();
 
 
-    const authorBlock = formattedDate ? <p>{`${dish.author} - ${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`}</p> :  <p>{`${dish.author}`}</p>;
-
-    const actionsClassname = dish.link === '' ? classNames(styles.actions, styles.noLink): styles.actions;
+    const authorBlock = dish.author && dish.author !== '' ? 
+            <p>{`${dish.author} - ${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`}</p> :  
+            <p>{`Adicionado em ${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`}</p>;
 
     return  (
         <div id={dish._id} className={styles.container}>
             <div className={styles.details}>
                 <div className={styles.left}>
-                    {authorBlock}
-                </div>
-                <div className={styles.right}>
-                    <p>{`Pontuação: ${score}`}</p>
+                    <h2>{`${(position + 1).toString()}º ${dish.name}` }</h2>        
                 </div>
             </div>
-            <h2>{`${(position + 1).toString()}º ${dish.name}` }</h2>
-            <div className={actionsClassname}>
+            <h3>{`Pontuação: ${score}`}</h3>
+            {authorBlock}
+            <div className={ styles.actions }>
                 <a href="#" className={likedClassname} onClick={(e) => setInteraction(e, INTERACTION.Like)}>
                     <FontAwesomeIcon icon={faPropUpIcon} className={styles.icon}/>
                     Gosto
@@ -138,9 +136,11 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
                         <FontAwesomeIcon icon={faPropEye} className={styles.icon}/>
                         Visitar
                     </a>
-}
+                }
             </div>
         </div>
     )
 };
 export default Card;
+
+
