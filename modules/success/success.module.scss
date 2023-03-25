@@ -13,11 +13,11 @@
         font-size: $font-xl;
         
         &.successIcon {
-            color: $green;
+            color: $primary;
         }
 
         &.error {
-            color: $strongRed;
+            color: $error;
         }
     }
 

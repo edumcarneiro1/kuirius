@@ -2,7 +2,7 @@
 
 .container {
     width: 100%;
-    background-color: $lightBrown;
+    background-color: $secondary;
     margin: $spacer-m 0;
     border-radius: $spacer-s;
     display: flex;
@@ -19,12 +19,14 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: $secondaryStrong;
     }
 
     h3 {
         font-size: $font-xm;
         text-align: left;
         margin: $spacer-xxs 0;
+        color: $secondaryStrong;
     }
 
     p {
@@ -64,7 +66,7 @@
             }
 
             a {
-                background-color: $brown;
+                background-color: $secondaryStrong;
                 text-decoration: none;
                 color: $white;
                 font-size: $font-s;
@@ -92,7 +94,7 @@
             justify-content: center;
             align-items: center;
             font-size: $font-s;
-            color: $brown;
+            color: $secondaryStrong;
 
             .icon {
                 width: $spacer-s;
@@ -101,12 +103,12 @@
 
             &.like {
              font-weight: bold;
-             color: $green;
+             color: $primary;
             }
 
             &.dislike {
                 font-weight: bold;
-                color: $strongRed;
+                color: $error;
                }
         }
     }
