@@ -21,21 +21,28 @@ export default async function handler(
    try {
 
      if (req.method === 'GET') {
-      let { featured, id, name } = req.query;
+      let { id, name } = req.query;
 
-      const featuredParam = featured && (featured === 'true' || featured === 'false') ? featured === "true" : null;
       const _id = id && typeof id === 'string' ? id : '';
 
-
       const query: Query = {};
-      if (featuredParam === true || featuredParam === false) query.featured = featuredParam;
+      
+      let cities: any = [];
+      query.featured = true;
     
       if (_id !== '') query._id = new ObjectId(_id);
       if (name && name !== '') query.name = name;
      
       const client = await clientPromise;
       const db = client.db("kuiriusdb");
-      const cities = await db.collection("cities").find(query).toArray();
+
+      const citiesFeatured = await db.collection("cities").find(query).sort('name').toArray();
+      
+      query.featured = false; 
+
+      const citiesNotFeatured = await db.collection("cities").find(query).sort('name').toArray();
+
+      cities = [...citiesFeatured, ...citiesNotFeatured];
       
       res.status(200).json({ status: 'success', response: cities });
     } else {
