@@ -14,11 +14,12 @@ import Loading from '../loading';
 type Props = {
   dishes: IRestaurantDish[];
   city: string;
+  dish: string;
 };
 
 
 
-const List: FunctionComponent<Props> = ({dishes, city}) => {
+const List: FunctionComponent<Props> = ({dishes, city, dish}) => {
     const router = useRouter();
 
     const [notification, setNotification] = useState('');
@@ -32,7 +33,7 @@ const List: FunctionComponent<Props> = ({dishes, city}) => {
 
     const handleAdd = () => {
       setLoading(true);
-      router.push(`/restaurant?city=${city}`);
+      router.push(`/restaurant?city=${city}&dish=${dish}`);
     }
 
     useEffect(() => {

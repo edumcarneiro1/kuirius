@@ -7,7 +7,7 @@ import Title from '../components/title';
 import Restaurant from '../modules/restaurant';
 import Success from '../modules/success';
 import Dish from '../modules/dish';
-import { ICity, IRestaurantDish } from '../types/types';
+import { ICity, IDish, IRestaurantDish } from '../types/types';
 import { stat } from 'fs';
 import Loading from '../modules/loading';
 
@@ -16,11 +16,15 @@ export async function getServerSideProps() {
 
     const resCities = await fetch(`${process.env.HOST}/api/cities`);
     const cities = await resCities.json();
+
+    const resDish = await fetch(`${process.env.HOST}/api/dishes`);
+    const dishes = await resDish.json();
   
   
     return {
       props: {
         cities: cities.response,
+        dishes: dishes.response
       }, 
     }
   }
@@ -28,9 +32,10 @@ export async function getServerSideProps() {
 
 type Props = {
     cities: ICity[];
+    dishes: IDish[];
   };
 
-const Index: FunctionComponent<Props> = ({cities})  => {
+const Index: FunctionComponent<Props> = ({cities, dishes})  => {
     const router = useRouter();
     
     const [status, setStatus] = useState('');
@@ -44,18 +49,20 @@ const Index: FunctionComponent<Props> = ({cities})  => {
       link: '',
       author: '',
       social: '',
-      city: ''
+      city: '',
+      dish: ''
     });
 
-    const postRestaurant = (dish) => {
+    const postRestaurant = (restaurant) => {
       setLoading(true);
+      setRestaurant(restaurant);
       const restaurantDish: IRestaurantDish= {
         name: restaurant.name,
         city: restaurant.city,
         link: restaurant.link,
         score: '1',
         author: restaurant.author,
-        dish: dish,
+        dish: restaurant.dish,
         dateOfCreation: Date.now().toString()
       };
 
@@ -94,17 +101,16 @@ const Index: FunctionComponent<Props> = ({cities})  => {
             link: '',
             author: '',
             social: '',
-            city: ''
+            city: '',
+            dish: ''
           });
         }
       }, 1000)
     }, [status]);
     
-    const title = restaurant.name === '' ? 'Adicionar Restaurante' : `Adicionar um prato ao restaurante ${restaurant.name}`;
+    const title = restaurant.name === '' ? 'Adicionar um prato a um Restaurante' : `Adicionar um prato ao restaurante ${restaurant.name}`;
     
-    const form = restaurant.name === '' ? 
-      <Restaurant  cities={cities} onComplete={setRestaurant}/> : 
-      <Dish onComplete={postRestaurant}/>;
+    const form = <Restaurant  cities={cities} dishes={dishes} onComplete={postRestaurant}/>;
 
     const pageContent = status === 'success' || status === 'error' ? 
                           <Success success={status === 'success'} message={message}/> : 

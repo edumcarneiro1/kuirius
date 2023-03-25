@@ -29,31 +29,8 @@ export default async function handler(
     if (!restaurantDish.city || req.body.city === '') res.status(500).json({ status: "Valid City ID is required"});
     if (!restaurantDish.score || req.body.score === '' || req.body.score === '0') res.status(500).json({ status: "Valid Restaurant score is required"});
     if (!restaurantDish.author || req.body.author === '') res.status(500).json({ status: "Valid Restaurant author is required"});
-    if (!restaurantDish.dish || req.body.dish === '') res.status(500).json({ status: "Valid Restaurant dish is required"});
+    if (!restaurantDish.dish || req.body.dish === '') res.status(500).json({ status: "Valid Restaurant dish Id is required"});
     if (!restaurantDish.dateOfCreation || req.body.dateOfCreation === '') res.status(500).json({ status: "Valid Restaurant date of Creation is required"});
-
-
-    const resDish = await fetch(`http://${req.headers.host}/api/dishes?name=${restaurantDish.dish.toLowerCase()}`);
-    const dishResult = await resDish.json();
-    let dishId:any = '';
-
-    if (dishResult.status === 'success') {
-      if (dishResult.response.length === 0) {
-          const resultDish = await db.collection("dishes").insertOne({name: restaurantDish.dish.toLowerCase()});
-
-          if(resultDish && resultDish.insertedId) {
-            dishId = resultDish.insertedId.toString();
-          } else {
-            res.status(500).json({ status: "Error on creating or getting dish"});
-          }
-      } else {
-        dishId = dishResult.response[0]._id
-      }
-    } else {
-      res.status(500).json({ status: "Error on creating or getting dish"});
-    }
-
-    restaurantDish.dish = dishId;
     
     const restaurantDishResult = await db.collection("restaurants_dishes").insertOne(restaurantDish);
 

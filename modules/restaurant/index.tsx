@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import styles from './restaurant.module.scss';
 
 import Dropdown from '../../components/dropdown';
-import { ICity } from '../../types/types';
+import { ICity, IDish } from '../../types/types';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import Error from '../../components/error';
@@ -12,13 +12,16 @@ import Error from '../../components/error';
 
 type Props = {
     cities: ICity[];
+    dishes: IDish[];
     onComplete: (params: any) => any;
 }
 
-const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
+const Restaurant: FunctionComponent<Props> = ({cities, dishes, onComplete}) => {
     const router = useRouter();
     
-    const cityName = router.query && router.query.city && router.query.city !== undefined ? router.query.city.toString() : '';
+    const cityId = router.query && router.query.city && router.query.city !== undefined ? router.query.city.toString() : '';
+
+    const dishId = router.query && router.query.dish && router.query.dish !== undefined ? router.query.dish.toString() : '';
 
     const [city, setCity] = useState('');
 
@@ -30,9 +33,12 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
 
     const [social, setSocial] = useState('');
 
+    const [dish, setDish] = useState('');
+
     const [error, setError] = useState(false);
     
     const citiesDropdown = cities.map(city => ({value: city._id, label: city.name}));
+    const dishesDropdown = dishes.map(dish => ({value: dish._id, label: dish.name}));
 
     const addRestaurant = () => {
         if (city === '' || name === '') {
@@ -44,7 +50,8 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
                     name: name,
                     link: link,
                     author: author,
-                    social: social
+                    social: social,
+                    dish: dish,
                 }
             )   
         }
@@ -59,8 +66,11 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
     }, [city, name]);
 
     useEffect(() => {
-        if (cityName) {
-            setCity(cityName);
+        if (cityId) {
+            setCity(cityId);
+        }
+        if (dishId) {
+            setDish(dishId);
         }
     }, []);
 
@@ -68,7 +78,10 @@ const Restaurant: FunctionComponent<Props> = ({cities, onComplete}) => {
         <>  
             <div className={styles.restaurant}>
                 <div className={styles.field}>
-                    <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} style={'add'} value={cityName}/>
+                    <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} style={'add'} value={city}/>
+                </div>
+                <div className={styles.field}>
+                    <Dropdown placeHolder='Prato' values={dishesDropdown} onChange={setDish} style={'add'} value={dish}/>
                 </div>
                 <div className={styles.field}>
                     <Input placeHolder='Nome do Restaurante' onChange={setName}/>
