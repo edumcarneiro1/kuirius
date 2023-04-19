@@ -54,20 +54,12 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
       <>
         {loading && <Loading />}
         <div className={styles.container}>
-            <div className={styles.image}>
-                <Image 
-                src="/home.png"
-                alt="Home Layoyt"
-                width={177}
-                height={196}
-              />
-            </div>
             <div className={styles.page}>
                 <div className={styles.logo}>
                   <Logo slogan={'Pelo amor à comida e restauração'} >Kuirius</Logo>
                 </div>
                 <div className={styles.title}>
-                  <Title>Onde comer bem?</Title>
+                  <Title style={'white'}>Onde comer bem?</Title>
                 </div>
                 <div className={styles.dropdown}>
                     <Dropdown placeHolder='Comida' values={dishesDropdown} onChange={setDish}/>

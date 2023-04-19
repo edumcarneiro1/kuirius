@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 type Props = {
     children: string;
     slogan?: string;
+    style?: string;
 }
 
 const Logo: FunctionComponent<Props> = ({children, slogan}) => {

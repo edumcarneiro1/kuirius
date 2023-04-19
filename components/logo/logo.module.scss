@@ -5,25 +5,44 @@
     text-align: center;
     color: $secondaryStrong;
 
+    @media (max-width: $breakPointTablet) {
+        color: $white;
+    }
+
     h2 {
         text-transform: uppercase;
         margin: 0;
+
+        
 
         &.light { 
             font-size: $font-m;
             line-height: $font-m;
             font-weight: 600;
+
+            @media (max-width: $breakPointTablet) {
+                color: $secondaryStrong;;
+            }
+        
         }
 
         &.strong {
             font-size: $font-l;
             line-height: $font-l;
             font-weight: 600;
+
+            @media (max-width: $breakPointTablet) {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+            }
         }
     }
 
     h5 {
         margin: 0;
         font-size: $font-s;
+        
+        @media (max-width: $breakPointTablet) {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+        }
     }
 }

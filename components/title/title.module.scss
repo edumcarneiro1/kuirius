@@ -6,3 +6,10 @@
     color: $secondaryStrong;
     margin: 0;
 }
+
+.white{
+    @media (max-width: $breakPointTablet) {
+        color: $white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+    }
+}
