@@ -39,7 +39,7 @@
         display: flex;
 
         .left {
-            width: 100%;
+            width: 80%;
 
             p {
                 margin: 0;
@@ -75,7 +75,7 @@
                 justify-content: center;
                 align-items: center;
                 width: 100%;
-                height: $spacer-m;
+                height: $spacer-l;
 
                 .icon {
                     width: $spacer-s;

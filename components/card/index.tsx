@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {  faLocationArrow, faThumbsUp, faThumbsDown, faShare, faEye} from '@fortawesome/free-solid-svg-icons'
 
+import Button from '../button';
+
 type Props = {
     position: number;
     dish: IRestaurantDish;
@@ -104,16 +106,23 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
 
     const formattedDate = dish.dateOfCreation !== '' ? new Date(parseInt(dish.dateOfCreation)) : new Date();
 
-
     const authorBlock = dish.author && dish.author !== '' ? 
-            <p>{`${dish.author} - ${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`}</p> :  
-            <p>{`Adicionado em ${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`}</p>;
+            <p>{`${dish.author} - ${formattedDate.toLocaleDateString('en-GB')}`}</p> :  
+            <p>{`Adicionado em ${formattedDate.toLocaleDateString('en-GB')}`}</p>;
 
     return  (
         <div id={dish._id} className={styles.container}>
             <div className={styles.details}>
                 <div className={styles.left}>
                     <h2>{`${(position + 1).toString()}º ${dish.name}` }</h2>        
+                </div>
+                <div className={styles.right}>
+                    {dish.link && 
+                        <a href={dish.link} target="_blank" rel='noreferrer'>
+                                <FontAwesomeIcon icon={faPropEye} className={styles.icon}/>
+                                Visitar
+                        </a>
+                    }
                 </div>
             </div>
             <h3>{`Pontuação: ${score}`}</h3>
@@ -131,12 +140,6 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
                     <FontAwesomeIcon icon={faPropShareIcon} className={styles.icon}/>
                     Partilhar
                 </a>
-                {dish.link && 
-                    <a href={dish.link} target="_blank" rel='noreferrer'>
-                        <FontAwesomeIcon icon={faPropEye} className={styles.icon}/>
-                        Visitar
-                    </a>
-                }
             </div>
         </div>
     )
