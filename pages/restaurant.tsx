@@ -92,7 +92,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
     useEffect(() => {
       setTimeout(()=> {
         if (status === 'success') {
-          router.push(`/`);
+          router.push(`/list?city=${restaurant.city}&dish=${restaurant.dish}`);
         } else {
           setStatus('');
           setMessage('')

@@ -1,6 +1,9 @@
 import type { FunctionComponent } from 'react';
+import { useRouter } from 'next/router';
 import styles from './dropdown.module.scss';
 import Select from 'react-select';
+
+import Button from '../button';
 
 type Props = {
     values: any;
@@ -12,10 +15,17 @@ type Props = {
 
 
 const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, style, value}) => {
+    const router = useRouter();
+
+
     
     const handleChange = (selectedOption) => {
         onChange(selectedOption.value);
     };
+
+    const handleReturn = () => {
+        router.push('/dish');
+    }
 
     let boxShadow = '0px 0px 8px 5px rgba(125,109,97,0.22);';
 
@@ -53,6 +63,9 @@ const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, styl
         options={values} 
         placeholder={placeHolder}
         onChange={handleChange}
+        noOptionsMessage={() => 
+            <Button onClick={handleReturn} primary={true} >Não encontrou o seu prato favorito? Adicione-o aqui.</Button>
+        }
         styles={{
             control: (baseStyles, state) => ({
             ...baseStyles,
