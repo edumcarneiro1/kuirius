@@ -4,7 +4,7 @@ import clientPromise from '../../bin/db/mongodb';
 import { ObjectId } from 'mongodb';
 
 type Data = {
-  response?: any[];
+  response?: any;
   status: string
 }
 
@@ -18,6 +18,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
    try {
+      const client = await clientPromise;
+      const db = client.db("kuiriusdb");
 
      if (req.method === 'GET') {
       let { id , name} = req.query;
@@ -30,8 +32,7 @@ export default async function handler(
       if (_id !== '') query._id = new ObjectId(_id);
       if (name && name !== '') query.name = name;
 
-      const client = await clientPromise;
-      const db = client.db("kuiriusdb");
+
     
       const dishes = await db.collection("dishes").find(query).toArray();
 
@@ -42,7 +43,19 @@ export default async function handler(
 
       res.status(200).json({ status: 'success', response: formattedDishes });
     } else {
-      res.status(404).json({ status: 'Not Found' });
+      if (!req.body ) res.status(500).json({ status: "Body is required"});
+
+      const dishObject = JSON.parse(req.body);
+
+      if (!dishObject.name || dishObject.name === '') res.status(500).json({status: 'Valid name dish is required'});
+
+      const restaurantDishResult = await db.collection("dishes").insertOne({
+        name: dishObject.name.toLowerCase()
+      })
+
+      console.log(restaurantDishResult);
+
+      res.status(200).json({ status: 'Success', response: {id: restaurantDishResult.insertedId}});
     }
    } catch (e) {
      res.status(500).json({ status: "Can't connect to DB"});

@@ -62,10 +62,10 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
                   <Title style={'white'}>Onde comer bem?</Title>
                 </div>
                 <div className={styles.dropdown}>
-                    <Dropdown placeHolder='Comida' values={dishesDropdown} onChange={setDish}/>
+                    <Dropdown placeHolder='Comida' values={dishesDropdown} onChange={setDish} action={'dish'}/>
                 </div>
                 <div className={styles.dropdown}>
-                    <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity}/>
+                    <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} action={'food'}/>
                 </div>
                 <div className={styles.button}>
                     {error && <Error>Escolha pelo menos uma cidade ou um prato.</Error>}

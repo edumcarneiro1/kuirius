@@ -10,11 +10,12 @@ type Props = {
     placeHolder: string;
     style?: string;
     value?: string;
+    action?: string;
     onChange: (params: any) => any;
 };
 
 
-const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, style, value}) => {
+const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, style, value, action}) => {
     const router = useRouter();
 
 
@@ -64,7 +65,7 @@ const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, styl
         placeholder={placeHolder}
         onChange={handleChange}
         noOptionsMessage={() => 
-            <Button onClick={handleReturn} primary={true} >Não encontrou o seu prato favorito? Adicione-o aqui.</Button>
+            action === 'dish' ? <Button onClick={handleReturn} primary={true} >Não encontrou o seu prato favorito? Adicione-o aqui.</Button> : <p>Sem resultados para esta localização</p>
         }
         styles={{
             control: (baseStyles, state) => ({

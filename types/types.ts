@@ -17,6 +17,6 @@ export interface IRestaurantDish {
 
 
 export interface IDish {
-    _id: number;
+    _id?: number;
     name: string;
 }

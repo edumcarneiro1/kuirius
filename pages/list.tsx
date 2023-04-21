@@ -17,13 +17,13 @@ export async function getServerSideProps({query}) {
  let cityName = '';
  let dishName = '';
 
- if (city !== '') {
+ if (city && city !== '') {
     const resCity = await fetch(`${process.env.HOST}/api/cities?id=${city}`);
     const cityResult = await resCity.json();
     cityName = cityResult.status === 'success' ? cityResult.response[0].name  : '';
  } 
  
- if (dish !== '') {
+ if (dish && dish !== '') {
   const resDish = await fetch(`${process.env.HOST}/api/dishes?id=${dish}`);
   const dishesResult = await resDish.json();
   dishName = dishesResult.status === 'success' ? dishesResult.response[0].name  : '';
@@ -32,7 +32,7 @@ export async function getServerSideProps({query}) {
   const resRestaurants = await fetch(`${process.env.HOST}/api/restaurants?city=${city}&dish=${dish}`);
   const restaurants = await resRestaurants.json();
   const dishes = restaurants.status === 'success' ? restaurants.response : [];
-  
+
   return {
     props: {
       city: cityName,
