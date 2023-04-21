@@ -10,6 +10,7 @@ import Dish from '../modules/dish';
 import { ICity, IDish, IRestaurantDish } from '../types/types';
 import { stat } from 'fs';
 import Loading from '../modules/loading';
+import{ Analytics } from '@vercel/analytics/react';
 
 
 export async function getServerSideProps() {
@@ -119,12 +120,15 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
                           { form }
                           </>
     return (
-        <Layout>
+        <>
+          <Layout>
             {loading && <Loading />}
             <div className={styles.title}>
                 { pageContent }
             </div>
-        </Layout>
+          </Layout>
+          <Analytics />
+        </>
     )
 }
 

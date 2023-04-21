@@ -11,6 +11,8 @@ import Dish from '../modules/dish';
 
 import { IDish } from '../types/types';
 
+import{ Analytics } from '@vercel/analytics/react';
+
 
 
 
@@ -74,12 +76,15 @@ const Index: FunctionComponent<{}> = ()  => {
                             <Dish onComplete={handleAddDish}/>
                         </>
     return (
-        <Layout>
-            {loading && <Loading />}
-            <div className={styles.title}>
-                {pageContent}
-            </div>
-        </Layout>
+        <>
+            <Layout>
+                {loading && <Loading />}
+                <div className={styles.title}>
+                    {pageContent}
+                </div>
+            </Layout>
+            <Analytics />
+        </>
     )
 }
 

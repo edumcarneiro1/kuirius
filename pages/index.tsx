@@ -6,6 +6,8 @@ import Script from 'next/script';
 import {ICity, IDish} from '../types/types';
 import { FunctionComponent } from 'react';
 
+import{ Analytics } from '@vercel/analytics/react';
+
 export async function getServerSideProps() {
 
   const resCities = await fetch(`${process.env.HOST}/api/cities`);
@@ -39,6 +41,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Home dishes={dishes} cities={cities}></Home>
+      <Analytics />
       <Script src="/hotjar.js"></Script>
     </>
   )

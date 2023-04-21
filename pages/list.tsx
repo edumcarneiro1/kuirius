@@ -8,6 +8,7 @@ import { IRestaurantDish } from '../types/types';
 import Layout from '../modules/layout';
 import Title from '../components/title';
 import List from '../modules/list';
+import{ Analytics } from '@vercel/analytics/react';
 
 
 export async function getServerSideProps({query}) {
@@ -67,12 +68,15 @@ const Index: FunctionComponent<Props> = ({city, cityId, dish, dishes, dishId})  
 
     
     return (
-        <Layout>
-            <div className={styles.title}>
-                <Title>{title}</Title>
-                <List dishes={dishes} city={cityId} dish={dishId}/>
-            </div>
-        </Layout>
+        <>
+          <Layout>
+              <div className={styles.title}>
+                  <Title>{title}</Title>
+                  <List dishes={dishes} city={cityId} dish={dishId}/>
+              </div>
+          </Layout>
+          <Analytics />
+        </>
     )
 }
 
