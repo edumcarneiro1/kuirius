@@ -46,7 +46,7 @@ const List: FunctionComponent<Props> = ({dishes, city, dish}) => {
     const dishesElement = dishes.length > 0 ? 
       dishes.map((dish, index) => <Card key={index} position={index} dish={dish} setNotification={setNotification} />) :
       <p className={styles.noResults}>
-        Não existem pratos adicionados, seja o primeiro a contribuir adicionando o seu restaurante favorito
+        Não existem restaurantes adicionados. Seja o primeiro a contribuir, adicionando o seu restaurante favorito.
       </p>;
     return (
       <>

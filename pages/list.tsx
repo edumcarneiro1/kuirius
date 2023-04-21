@@ -55,14 +55,14 @@ type Props = {
 const Index: FunctionComponent<Props> = ({city, cityId, dish, dishes, dishId})  => {
     const router = useRouter();
 
-    let title = `Onde comer a melhor ${dish} no ${city}?`;
+    let title = `${city} - Onde comer excelente prato de ${dish}?`;
     
     if (dish === '') {
-      title = `Onde comer melhor em ${city}?`
+      title = `${city} - Onde comer melhor?`
     }
 
     if (city === '') {
-      title = `Onde comer a melhor ${dish}?`
+      title = `Onde comer excelente prato de ${dish}?`
     }
 
     

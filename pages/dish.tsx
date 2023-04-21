@@ -42,7 +42,7 @@ const Index: FunctionComponent<{}> = ()  => {
             setLoading(false);
             if (result.status === 'Success') {
                 setId(result.response.id)
-                setMessage('Obrigado pela sua contribuição');
+                setMessage('Obrigado por adicionar este prato à nossa comunidade!');
                 setStatus('success');
             } else {
                 setMessage('Ops, algo correu mal, tente novamente');

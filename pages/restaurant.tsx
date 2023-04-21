@@ -75,7 +75,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
       .then((result) => {
         setLoading(false);
         if (result.status === 'Success') {
-          setMessage('Obrigado pela sua contribuição');
+          setMessage('Obrigado por adicionar este restaurante à nossa comunidade!');
           setStatus('success');
         } else {
           setMessage('Ops, algo correu mal, tente novamente');

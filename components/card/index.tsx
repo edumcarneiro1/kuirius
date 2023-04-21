@@ -125,7 +125,7 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
                     }
                 </div>
             </div>
-            <h3>{`Pontuação: ${score}`}</h3>
+            <h3>{`Gostos: ${score}`}</h3>
             {authorBlock}
             <div className={ styles.actions }>
                 <a href="#" className={likedClassname} onClick={(e) => setInteraction(e, INTERACTION.Like)}>

@@ -56,20 +56,20 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
         <div className={styles.container}>
             <div className={styles.page}>
                 <div className={styles.logo}>
-                  <Logo slogan={'Pelo amor à comida e restauração'} >Kuirius</Logo>
+                  <Logo slogan={'Pelo amor à comida e bons restaurantes'} >Kuirius</Logo>
                 </div>
                 <div className={styles.title}>
-                  <Title style={'white'}>Onde comer bem?</Title>
+                  <Title style={'white'}>Onde comer bem em Portugal?</Title>
                 </div>
                 <div className={styles.dropdown}>
                     <Dropdown placeHolder='Comida' values={dishesDropdown} onChange={setDish} action={'dish'}/>
                 </div>
                 <div className={styles.dropdown}>
-                    <Dropdown placeHolder='Cidade' values={citiesDropdown} onChange={setCity} action={'food'}/>
+                    <Dropdown placeHolder='Localização' values={citiesDropdown} onChange={setCity} action={'food'}/>
                 </div>
                 <div className={styles.button}>
-                    {error && <Error>Escolha pelo menos uma cidade ou um prato.</Error>}
-                    <Button onClick={handleSubmit} primary={true} >Ver Restaurantes</Button>
+                    {error && <Error>Escolha pelo menos uma localização ou comida.</Error>}
+                    <Button onClick={handleSubmit} primary={true} >Procurar Restaurantes</Button>
               </div>
             </div>
         </div>
