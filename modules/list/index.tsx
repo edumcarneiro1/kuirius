@@ -7,9 +7,12 @@ import styles from './list.module.scss'
 import Card from '../../components/card';
 import Button from '../../components/button';
 import Notification from '../../components/notification';
+import SimpleDropdown from '../../components/simpleDropdown';
 
-import { IRestaurantDish } from '../../types/types';
+import { IRestaurantDish, INTERACTION } from '../../types/types';
 import Loading from '../loading';
+
+import { sort } from '../../hooks';
 
 type Props = {
   dishes: IRestaurantDish[];
@@ -18,13 +21,16 @@ type Props = {
 };
 
 
-
 const List: FunctionComponent<Props> = ({dishes, city, dish}) => {
     const router = useRouter();
 
     const [notification, setNotification] = useState('');
 
     const [loading, setLoading] = useState(false);
+
+    const [restaurants, setRestaurants] = useState(dishes);
+
+    const [sortCondition, setScoreCondition] = useState('-score');
 
     const handleReturn = () => {
       setLoading(true);
@@ -36,20 +42,104 @@ const List: FunctionComponent<Props> = ({dishes, city, dish}) => {
       router.push(`/restaurant?city=${city}&dish=${dish}`);
     }
 
+    const handleSort = (condition) => {
+      setScoreCondition(condition);
+      setRestaurants(sort(restaurants, condition));
+    }
+
+    const handleInteraction = (id: string, interaction: INTERACTION) => {
+      const restaurantsUpdated = restaurants.map((restaurant) => {
+        if (restaurant._id === id) {
+          let newLikeValue = restaurant.liked;
+          let newDislikeValue = restaurant.disliked;
+          let newScore = parseInt(restaurant.score);
+          const oldScore = parseInt(restaurant.score);
+          if (interaction === INTERACTION.Like) {
+              if (restaurant.liked) {
+                 //Descrease score -1 on DB
+                newScore = oldScore - 1;
+                newLikeValue = false;
+              } else {
+                 //Increase score +1 on DB
+                newLikeValue = true;
+
+                if (restaurant.disliked) {
+                    newDislikeValue = false;
+                    newScore = oldScore + 2;
+                } else {
+                    newScore = oldScore + 1;
+                }
+              }
+          } else if(interaction === INTERACTION.Dislike){
+            if (restaurant.disliked) {
+                //Increase score +1 on DB
+                newScore = oldScore + 1;
+                newDislikeValue = false;
+
+            } else {
+                //Descrease score -1 on DB
+                newDislikeValue = true;
+                if (restaurant.liked) {
+                    newLikeValue = false;
+                    newScore = oldScore - 2;
+                } else {
+                    newScore = oldScore - 1;
+                }
+            }   
+          }
+          const newRestaurant = restaurant;
+          
+          newRestaurant.score = newScore.toString();
+          newRestaurant.liked = newLikeValue;
+          newRestaurant.disliked = newDislikeValue;
+
+          fetch(`${process.env.NEXT_PUBLIC_HOST}/api/restaurants?city=${router.query.city}&dish=${router.query.dish}`, {
+              method: 'POST',
+              body: JSON.stringify(newRestaurant)
+              }
+          );
+
+          return newRestaurant;
+
+        } else {
+          return restaurant;
+        }
+      }); 
+
+      setRestaurants(sortCondition === '-score' ? sort(restaurantsUpdated, '-score'): restaurantsUpdated);
+    }
+
     useEffect(() => {
       setTimeout(()=> {
         setNotification('');
       }, 3000)
   }, [notification]);
 
+
     // eslint-disable-next-line react/jsx-key
-    const dishesElement = dishes.length > 0 ? 
-      dishes.map((dish, index) => <Card key={index} position={index} dish={dish} setNotification={setNotification} />) :
+    const dishesElement = restaurants.length > 0 ? 
+    restaurants.map((dish, index) => <Card 
+                                        key={dish._id} 
+                                        position={index} 
+                                        dish={dish} 
+                                        setNotification={setNotification} 
+                                        setInteraction={handleInteraction}
+                                        />) :
       <p className={styles.noResults}>
         Não existem restaurantes adicionados. Seja o primeiro a contribuir, adicionando o seu restaurante favorito.
       </p>;
     return (
       <>
+        <div className={styles.sort}>
+          <SimpleDropdown 
+              values={[
+                  { value: '-score', name: 'Gostos'},
+                  { value: 'name', name: 'Alfabética'},
+              ]}
+              defaultValue={sortCondition}
+              onChange={handleSort}
+          />
+        </div>
         {loading && <Loading />}
         <div className={styles.results}>
           { dishesElement}

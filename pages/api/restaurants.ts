@@ -35,8 +35,16 @@ export default async function handler(
       if (_dish !== '')  query.dish =  _dish
 
       const restaurantDishes = await db.collection("restaurants_dishes").find(query).sort({score: -1}).collation({locale: "en_US", numericOrdering: true}).toArray();
+
+      const restaurantDishesWithStatus = restaurantDishes.map((restaurant) => {
+        return {
+          ...restaurant,
+          liked: false,
+          disliked: false
+        }
+      })
       
-      res.status(200).json({ status: 'success', response: restaurantDishes });
+      res.status(200).json({ status: 'success', response: restaurantDishesWithStatus });
     } else {
       const dish = JSON.parse(req.body);
 

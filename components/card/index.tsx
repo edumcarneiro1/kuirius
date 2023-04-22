@@ -5,7 +5,7 @@ import styles from './card.module.scss';
 import classNames from 'classnames';
 
 
-import { IRestaurantDish } from '../../types/types';
+import { IRestaurantDish, INTERACTION } from '../../types/types';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,11 +18,7 @@ type Props = {
     position: number;
     dish: IRestaurantDish;
     setNotification: (params: any) => any;
-};
-
-enum INTERACTION {
-    Like,
-    Dislike
+    setInteraction: (id: any, interaction: any) => any;
 };
 
 const faPropIcon = faLocationArrow as IconProp;
@@ -32,13 +28,9 @@ const faPropShareIcon = faShare as IconProp;
 const faPropEye = faEye as IconProp;
 
 
-const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
-    const [liked, setLiked ] = useState(false);
-    const [disliked, setDisliked ] = useState(false);
-    const [score, setScore] = useState(parseInt(dish.score));
-
-    const likedClassname = liked ? styles.like : '';
-    const disLikedClassname = disliked ? styles.dislike : '';
+const Card: FunctionComponent<Props> = ({position, dish, setNotification, setInteraction}) => {
+    const likedClassname = dish.liked ? styles.like : '';
+    const disLikedClassname = dish.disliked ? styles.dislike : '';
 
     const router = useRouter();
 
@@ -48,68 +40,13 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
         setNotification('O link do restaurante foi copiado para o seu clipboard');
     } 
 
-    const setInteraction = (e, interaction) => {
-        e.preventDefault();
-
-        let newLikeValue = liked;
-        let newDislikeValue = disliked;
-        let newScore = score;
-
-        if (interaction === INTERACTION.Like) {
-            if (liked) {
-                //Descrease score -1 on DB
-                newScore = score - 1;
-                newLikeValue = false;
-            } else {
-                //Increase score +1 on DB
-                newLikeValue = true;
-
-                if (disliked) {
-                    newDislikeValue = false;
-                    newScore = score + 2;
-                } else {
-                    newScore = score + 1;
-                }
-            }
-        } else {
-            if (disliked) {
-                //Increase score +1 on DB
-                newScore = score + 1;
-                newDislikeValue = false;
-
-            } else {
-                //Descrease score -1 on DB
-                newDislikeValue = true;
-                if (liked) {
-                    newLikeValue = false;
-                    newScore = score - 2;
-                } else {
-                    newScore = score - 1;
-                }
-            }   
-        }
-        const newDish = dish;
-        
-        newDish.score = newScore.toString();
-    
-        fetch(`${process.env.NEXT_PUBLIC_HOST}/api/restaurants?city=${router.query.city}&dish=${router.query.dish}`, {
-            method: 'POST',
-            body: JSON.stringify(newDish)
-            }
-        );
-        
-        setScore(newScore);
-        setLiked(newLikeValue);
-        setDisliked(newDislikeValue);
-
-    };
-
     const formattedDate = dish.dateOfCreation !== '' ? new Date(parseInt(dish.dateOfCreation)) : new Date();
 
     const authorBlock = dish.author && dish.author !== '' ? 
             <p>{`${dish.author} - ${formattedDate.toLocaleDateString('en-GB')}`}</p> :  
             <p>{`Adicionado em ${formattedDate.toLocaleDateString('en-GB')}`}</p>;
 
+    
     return  (
         <div id={dish._id} className={styles.container}>
             <div className={styles.details}>
@@ -125,14 +62,14 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification}) => {
                     }
                 </div>
             </div>
-            <h3>{`Gostos: ${score}`}</h3>
+            <h3>{`Gostos: ${dish.score}`}</h3>
             {authorBlock}
             <div className={ styles.actions }>
-                <a href="#" className={likedClassname} onClick={(e) => setInteraction(e, INTERACTION.Like)}>
+                <a href="#" className={likedClassname} onClick={(e) => {e.preventDefault();setInteraction(dish._id, INTERACTION.Like)}}>
                     <FontAwesomeIcon icon={faPropUpIcon} className={styles.icon}/>
                     Gosto
                 </a>
-                <a href="#" className={disLikedClassname}  onClick={(e) => setInteraction(e, INTERACTION.Dislike)}>
+                <a href="#" className={disLikedClassname}  onClick={(e) => {e.preventDefault();setInteraction(dish._id, INTERACTION.Dislike)}}>
                     <FontAwesomeIcon icon={faPropDownIcon} className={styles.icon}/>
                     Não Gosto
                 </a>

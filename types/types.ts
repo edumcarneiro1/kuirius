@@ -13,6 +13,8 @@ export interface IRestaurantDish {
     author: string;
     dateOfCreation: string;
     dish: string;
+    liked?: boolean;
+    disliked?: boolean;
 }
 
 
@@ -20,3 +22,8 @@ export interface IDish {
     _id?: number;
     name: string;
 }
+
+export enum INTERACTION {
+  Like,
+  Dislike
+};

@@ -53,8 +53,6 @@ export default async function handler(
         name: dishObject.name.toLowerCase()
       })
 
-      console.log(restaurantDishResult);
-
       res.status(200).json({ status: 'Success', response: {id: restaurantDishResult.insertedId}});
     }
    } catch (e) {

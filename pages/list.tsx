@@ -66,7 +66,6 @@ const Index: FunctionComponent<Props> = ({city, cityId, dish, dishes, dishId})  
       title = `Onde comer excelente prato de ${dish}?`
     }
 
-    
     return (
         <>
           <Layout>
