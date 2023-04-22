@@ -4,7 +4,7 @@ import clientPromise from '../../bin/db/mongodb';
 import { ObjectId } from 'mongodb';
 
 type Data = {
-  response?: any[];
+  response?: any;
   status: string
 }
 
@@ -33,6 +33,6 @@ export default async function handler(
   
     const restaurantDishResult = await db.collection("restaurants_dishes").insertOne(restaurantDish);
 
-    res.status(200).json({ status: 'Success' });
+    res.status(200).json({ status: 'Success', response: {_id: restaurantDishResult.insertedId} });
 
 }

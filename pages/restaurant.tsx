@@ -61,7 +61,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
         name: restaurant.name,
         city: restaurant.city,
         link: restaurant.link,
-        score: '1',
+        score: '0',
         author: restaurant.author,
         dish: restaurant.dish,
         dateOfCreation: Date.now().toString()
@@ -93,6 +93,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
     useEffect(() => {
       setTimeout(()=> {
         if (status === 'success') {
+
           router.push(`/list?city=${restaurant.city}&dish=${restaurant.dish}`);
         } else {
           setStatus('');

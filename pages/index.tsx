@@ -36,7 +36,7 @@ const Index: FunctionComponent<Props> = ({cities, dishes})  => {
     <>
       <Head>
         <title>Kuirius</title>
-        <meta name="description" content="Pelo amor à comida e bons restaurantes" />
+        <meta name="description" content="Encontre na nossa comunidade os locais onde comer bem em Portugal." />
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

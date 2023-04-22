@@ -4,7 +4,7 @@ import clientPromise from '../../bin/db/mongodb';
 import { ObjectId } from 'mongodb';
 
 type Data = {
-  response?: any[];
+  response?: any;
   status: string
 }
 
@@ -69,7 +69,7 @@ export default async function handler(
         `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
       );
 
-      res.status(200).json({ status: 'Success' });
+      res.status(200).json({ status: 'Success', response: {_id: result.upsertedId} });
     }
    } catch (e) {
      res.status(500).json({ status: "Can't connect to DB"});
