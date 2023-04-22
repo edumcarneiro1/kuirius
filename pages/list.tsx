@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import styles from './list.module.scss';
@@ -55,6 +55,53 @@ type Props = {
 
 const Index: FunctionComponent<Props> = ({city, cityId, dish, dishes, dishId})  => {
     const router = useRouter();
+    const [restaraunts, setRestaurants] = useState<IRestaurantDish[]>([]);
+    const [ready, setReady] = useState(false);
+
+
+  useEffect(() => {
+    // todo move to an hook
+      const savedRestaurants = localStorage.getItem('restaurants');
+
+      if (!savedRestaurants) {
+        const mappedRestaurants = dishes.map((dish) => {return {_id: dish._id, liked: dish.liked, disliked: dish.disliked}});
+        localStorage.setItem('restaurants', JSON.stringify(mappedRestaurants));
+        setReady(true);
+        setRestaurants(dishes);
+      } else {
+        const localStorageRestaurants = JSON.parse(savedRestaurants);
+        const dishesUpdated: IRestaurantDish[] = dishes.map((dish) => {
+            const onLocalStorageRestaurant = localStorageRestaurants.find((elem) => elem._id === dish._id);
+            
+            if (onLocalStorageRestaurant) {
+              return {
+                _id: dish._id,
+                name: dish.name,
+                city: dish.city,
+                link: dish.link,
+                score: dish.score,
+                author: dish.author,
+                dateOfCreation: dish.dateOfCreation,
+                dish: dish.dish,
+                liked: onLocalStorageRestaurant.liked,
+                disliked: onLocalStorageRestaurant.disliked
+              }
+            } else {
+              localStorageRestaurants.push({
+                _id: dish._id,
+                liked: dish.liked,
+                disliked: dish.disliked
+              })
+
+              localStorage.setItem('restaurants', JSON.stringify(localStorageRestaurants));
+
+              return dish;
+            }
+        });
+        setReady(true);
+        setRestaurants(dishesUpdated);
+      }
+  }, [dishes])
 
     let title = `${city} - Onde comer excelente prato de ${dish}?`;
     
@@ -68,12 +115,12 @@ const Index: FunctionComponent<Props> = ({city, cityId, dish, dishes, dishId})  
 
     return (
         <>
-          <Layout>
+          {ready && <Layout>
               <div className={styles.title}>
                   <Title>{title}</Title>
-                  <List dishes={dishes} city={cityId} dish={dishId}/>
+                  <List dishes={restaraunts} city={cityId} dish={dishId}/>
               </div>
-          </Layout>
+          </Layout> }
           <Analytics />
         </>
     )

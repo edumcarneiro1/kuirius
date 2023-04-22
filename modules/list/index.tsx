@@ -98,6 +98,30 @@ const List: FunctionComponent<Props> = ({dishes, city, dish}) => {
               body: JSON.stringify(newRestaurant)
               }
           );
+          
+          //Todo: move to a hook
+          if (typeof window !== 'undefined') {
+            const savedRestaurants = localStorage.getItem('restaurants');
+
+            if (savedRestaurants) {
+              const localStorageRestaurants = JSON.parse(savedRestaurants);
+
+              const newLocalStorage = localStorageRestaurants.map((restaurantStorage) => {
+                if (restaurantStorage._id === newRestaurant._id) {
+                  return {
+                    _id: newRestaurant._id,
+                    liked: newRestaurant.liked,
+                    disliked: newRestaurant.disliked
+                  }
+                } else {
+                  return restaurantStorage
+                }
+              })
+
+              localStorage.setItem('restaurants', JSON.stringify(newLocalStorage));
+            }
+          }
+          
 
           return newRestaurant;
 
@@ -118,10 +142,10 @@ const List: FunctionComponent<Props> = ({dishes, city, dish}) => {
 
     // eslint-disable-next-line react/jsx-key
     const dishesElement = restaurants.length > 0 ? 
-    restaurants.map((dish, index) => <Card 
-                                        key={dish._id} 
+    restaurants.map((resturantDish, index) => <Card 
+                                        key={resturantDish._id} 
                                         position={index} 
-                                        dish={dish} 
+                                        dish={resturantDish} 
                                         setNotification={setNotification} 
                                         setInteraction={handleInteraction}
                                         />) :
