@@ -1,5 +1,4 @@
-import { FunctionComponent, use } from 'react'
-import { useState, useEffect } from 'react';
+import { FunctionComponent, useRef, useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import styles from './home.module.scss'
 import Image from 'next/image';
@@ -49,11 +48,19 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
         setError(false);
     }, [city, dish]);
 
-
     return (
       <>
         {loading && <Loading />}
         <div className={styles.container}>
+          <Image 
+            className={styles.landingImage}
+            src="/background.jpeg"
+            alt="Kuirius, pelo amor à comida"
+            layout="fill"
+            objectFit="cover"
+            objectPosition='left'
+
+          />
             <div className={styles.page}>
                 <div className={styles.logo}>
                   <Logo slogan={'Pelo amor à comida e bons restaurantes'} >Kuirius</Logo>

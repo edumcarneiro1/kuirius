@@ -6,13 +6,11 @@
     display: flex;
     justify-content: center;
     position: relative;
-    background-image: url("../../public/background.jpeg");
-    background-size: cover;
-
+    
     .page { 
         width: 40%;
         margin-top: 200px;
-
+        z-index: 1;
         .logo {
             margin: 0 0 $spacer-m 0;
         }
@@ -43,4 +41,8 @@
         top: 0;
         left: 0;
     }
+}
+
+.landingImage {
+    z-index: 0;
 }
