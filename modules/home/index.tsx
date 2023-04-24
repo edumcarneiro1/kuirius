@@ -1,16 +1,7 @@
-import { FunctionComponent, useRef, useState, useEffect } from 'react'
+import { FunctionComponent, useState, useEffect, lazy, Suspense } from 'react'
 import { useRouter } from 'next/router';
 import styles from './home.module.scss'
 import Image from 'next/image';
-
-// Types
-import {ICity, IDish } from '../../types/types';
-
-type Props = {
-  dishes: IDish[];
-  cities: ICity[];
-};
-
 
 
 //Components
@@ -21,11 +12,12 @@ import Button from '../../components/button';
 import Error from '../../components/error';
 import Loading from '../loading';
 
-const Home: FunctionComponent<Props> = ({dishes, cities}) => {
-    const router = useRouter();
+//Modules 
+const Cities = lazy(() => import('../cities/cities'))
+const Dishes = lazy(() => import('../dishes/dishes'))
 
-    const dishesDropdown = dishes.map(dish => ({value: dish._id, label: dish.name}));
-    const citiesDropdown = cities.map(city => ({value: city._id, label: city.name}));
+const Home: FunctionComponent<{}> = () => {
+    const router = useRouter();
 
     const [loading, setLoading] = useState(false);
 
@@ -69,10 +61,14 @@ const Home: FunctionComponent<Props> = ({dishes, cities}) => {
                   <Title style={'white'}>Onde comer bem em Portugal?</Title>
                 </div>
                 <div className={styles.dropdown}>
-                    <Dropdown placeHolder='Comida' values={dishesDropdown} onChange={setDish} action={'dish'}/>
+                    <Suspense fallback={<Dropdown placeHolder='Comida' values={[]} onChange={setDish} action={'dish'}/>}>
+                      <Dishes onChange={setDish} />
+                    </Suspense>
                 </div>
                 <div className={styles.dropdown}>
-                    <Dropdown placeHolder='Localização' values={citiesDropdown} onChange={setCity} action={'food'}/>
+                  <Suspense fallback={<Dropdown placeHolder='Localização' values={[]} onChange={setCity} action={'food'} />}>
+                    <Cities onChange={setCity} />
+                  </Suspense>
                 </div>
                 <div className={styles.button}>
                     {error && <Error>Escolha pelo menos uma localização ou comida.</Error>}
