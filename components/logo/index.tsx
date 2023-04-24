@@ -20,8 +20,8 @@ const Logo: FunctionComponent<Props> = ({children, slogan}) => {
     
     return  (
         <div className={styles.logo}>
-            <h2 className={styleType} onClick={handleHome}>{children}</h2>
-            <h5>{slogan}</h5>
+            <h1 className={styleType} onClick={handleHome}>{children}</h1>
+            <h3>{slogan}</h3>
         </div>
     )
 };

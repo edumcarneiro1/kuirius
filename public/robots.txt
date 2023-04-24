@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /_next/
+Disallow: /api/
+Disallow: /public/
+Disallow: /404
+Disallow: /500
+Disallow: /sitemap.xml
+Disallow: /sitemap.xml.gz
+Sitemap: https://kuirius.com/sitemap.xml
