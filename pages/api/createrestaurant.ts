@@ -30,6 +30,16 @@ export default async function handler(
     if (!restaurantDish.score || req.body.score === '' || req.body.score === '0') res.status(500).json({ status: "Valid Restaurant score is required"});
     if (!restaurantDish.dish || req.body.dish === '') res.status(500).json({ status: "Valid Restaurant dish Id is required"});
     if (!restaurantDish.dateOfCreation || req.body.dateOfCreation === '') res.status(500).json({ status: "Valid Restaurant date of Creation is required"});
+
+    if(restaurantDish.link) {
+      const HTTPS_PREFIX = 'https://';
+
+      const PREFIX_REGEX = /^https?:\/\//i;
+
+      if (!PREFIX_REGEX.test(restaurantDish.link)) {
+        restaurantDish.link = HTTPS_PREFIX + restaurantDish.link
+      };
+    } 
   
     const restaurantDishResult = await db.collection("restaurants_dishes").insertOne(restaurantDish);
 
