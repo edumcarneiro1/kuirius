@@ -36,7 +36,7 @@ const Card: FunctionComponent<Props> = ({position, dish, setNotification, setInt
 
     const handleShare = (e) => {
         e.preventDefault();
-        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_HOST}/${router.asPath}#${dish._id}`);
+        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_HOST}/list?city=${router.query.city}&dish=${router.query.dish}#${dish._id}`);
         setNotification('O link do restaurante foi copiado para o seu clipboard');
     } 
 

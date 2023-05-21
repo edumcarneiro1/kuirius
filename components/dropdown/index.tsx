@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import styles from './dropdown.module.scss';
-import Select from 'react-select';
+import Select, {components} from 'react-select';
 
 import Button from '../button';
 
@@ -42,8 +42,17 @@ const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, styl
         color = '#000000';
         border = '#000000';
     }
+
+    const CustomInput = (props: any) => (
+        <components.Input {...props} data-hj-allow />
+    );
+
+
     const select = value && value !== '' ? 
         <Select 
+        components={{
+            Input: CustomInput,
+        }}
         options={values} 
         placeholder={placeHolder}
         onChange={handleChange}
@@ -60,7 +69,10 @@ const Dropdown: FunctionComponent<Props> = ({values, placeHolder, onChange, styl
             })
         }}
         /> : 
-        <Select 
+        <Select
+        components={{
+            Input: CustomInput,
+        }}
         options={values} 
         placeholder={placeHolder}
         onChange={handleChange}
