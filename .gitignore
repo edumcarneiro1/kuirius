@@ -33,3 +33,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+db/addDishes.js
+db/cleanDishes.js
+db/addDishes.js
+db/addDishes.js
+.gitignore

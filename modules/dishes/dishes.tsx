@@ -25,7 +25,7 @@ const Dishes: FunctionComponent<Props> = ({onChange}) => {
       }, [])
 
     return (
-        <Dropdown placeHolder='Comida' values={dishes} onChange={onChange} action={'food'}/>       
+        <Dropdown placeHolder='Comida' values={dishes} onChange={onChange} action={'dish'}/>       
     );
 };
 
